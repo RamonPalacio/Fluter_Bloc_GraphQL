@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import '../../flutter_bloc/main_bloc.dart';
 import '../../flutter_bloc/main_bloc_state.dart';
 import '/model/customer_offers.dart';
@@ -18,11 +19,12 @@ class ListItems extends StatelessWidget {
         child: BlocBuilder<OffersBloc, OfferState>(
           builder: (context, state) {
             if (state is FailOffersState) {
-              return const Text("Error Obteniendo Ofertas");
+              return const Text("Error Getting Offers");
             }
             if (state is ShowOffersState) {
               final List<Offer> listOffer =
                   state.viewerCustomerInfo?.offers ?? [];
+              Logger().wtf(listOffer);
               return GridView.count(
                 childAspectRatio: 0.8,
                 crossAxisCount: 2,
@@ -33,7 +35,7 @@ class ListItems extends StatelessWidget {
             if (state is InitOfferState) {
               return const CircularProgressIndicator();
             } else {
-              return const Text("OfferState No controlado...");
+              return const Text("OfferState No controller...");
             }
           },
         ),

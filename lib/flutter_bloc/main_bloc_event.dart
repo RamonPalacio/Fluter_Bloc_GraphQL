@@ -7,7 +7,7 @@ part 'main_bloc_event.freezed.dart';
 @freezed
 class OffersEvent with _$OffersEvent {
   const factory OffersEvent.getDataOffer() = GetDataOffer;
-  const factory OffersEvent.showDetail({@Default([]) List<Offer> offer}) =
-      ShowDetail;
+  // const factory OffersEvent.showDetail({@Default([]) List<Offer> offer}) =
+  //     ShowDetail;
   const factory OffersEvent.buyOffer({required Offer offer}) = BuyOffer;
 }

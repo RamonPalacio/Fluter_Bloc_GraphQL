@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:logger/logger.dart';
 import 'main_bloc_event.dart';
 import 'main_bloc_state.dart';
-import '/graphql/graphql_client.dart';
 import '/repository/offers_repository.dart';
 import '/model/customer_offers.dart';
 import '/model/model_purchase.dart';
@@ -31,15 +30,13 @@ class OffersBloc extends Bloc<OffersEvent, OfferState> {
     });
 
     on<BuyOffer>((event, emit) async {
-      final _offersRepo = OffersRepository(graphQLClient);
       state.maybeWhen(
           showOffers: (viewerCustomerInfo) {
             emit(BuyingOfferState(viewerCustomerInfo: viewerCustomerInfo));
           },
           orElse: () {});
 
-      final queryResult = await _offersRepo.buyOffer(event.offer.id);
-
+      final queryResult = await offersRepo.buyOffer(event.offer.id);
       if (queryResult.data is Map) {
         final purchaseMaster = PurchaseMaster.fromJson(queryResult.data!);
         final newBalance = purchaseMaster.purchase.customer.balance;

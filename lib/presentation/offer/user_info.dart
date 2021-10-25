@@ -13,7 +13,7 @@ class UserInfo extends StatelessWidget {
     return BlocBuilder<OffersBloc, OfferState>(
       builder: (context, state) {
         if (state is FailOffersState) {
-          return const Text("Error Obteniendo Ofertas");
+          return const Text("Error Getting Offers");
         }
         if (state is ShowOffersState) {
           return Column(
@@ -25,9 +25,9 @@ class UserInfo extends StatelessWidget {
           );
         }
         if (state is InitOfferState) {
-          return const Text("Cargando...");
+          return const CircularProgressIndicator();
         } else {
-          return const Text("OfferState No controlado...");
+          return const Text("OfferState No controller...");
         }
       },
     );
