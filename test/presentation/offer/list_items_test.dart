@@ -88,31 +88,5 @@ void main() {
       expect(find.text('Error Getting Offers'), findsOneWidget);
       expect(find.byType(CircularProgressIndicator), findsNothing);
     });
-
-    testWidgets('test when the offer response is ShowOffersState',
-        (tester) async {
-      MockOffersRepository mockOffersRepository = MockOffersRepository();
-
-      mockNetworkImagesFor(() {
-        tester.pumpWidget(MultiBlocProvider(
-          providers: [
-            BlocProvider<OffersBloc>(
-              create: (BuildContext context) {
-                OffersBloc bloc = OffersBloc(offersRepo: mockOffersRepository);
-                // ignore: invalid_use_of_internal_member
-                bloc.emit(
-                    ShowOffersState(viewerCustomerInfo: viewerCustomerInfo));
-                return bloc;
-              },
-            ),
-          ],
-          child: const MaterialApp(home: listItems),
-        ));
-      });
-      // expect(find.text('Microverse Battery'), findsOneWidget);
-      // expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      // expect(find.byType(Item), findsOneWidget);
-      // expect(find.byType(CircularProgressIndicator), findsNothing);
-    });
   });
 }
